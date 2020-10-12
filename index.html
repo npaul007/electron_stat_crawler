@@ -1,0 +1,435 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Stat Crawler</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/vex-theme-os.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/checkInternet.js"></script>
+    <script src="./js//navbar.js"></script>
+    <script src="./js/settings.js"></script>
+    <script src="./js/compare.js"></script>
+    <script src="./js/searchGames.js"></script>
+    <script src="./js/searchPlayers.js"></script>
+    <script src="./js/index.js"></script>
+  </head>
+  <body class="">
+    <div id="nav-container" style="position: fixed;">
+      <span style="padding: 5px;">Stat Crawler</span>
+      <span name="print-button" title="Print this page">
+        <img src="./images/download.png" alt="">
+      </span>
+      <br>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="#" name="search"  >Season Averages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"  name="games" >Individual Games</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" name="compare" >Compare</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"  name="latest" >Latest Scores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" name="settings" >Settings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" name="about" >About</a>
+        </li>
+      </ul>
+    </div><br>
+    <div style="margin-bottom: 50px;"></div>
+
+    <div class="container-fluid">
+      <div name="search-page" class="full-page">
+        <div class="row">
+          <form name="search-players-form" action="">
+            <label for="search-players-text-input">Enter the Player's name</label>
+            <input name="search-players-text-input" type="text" class=""/>
+            <input type="submit" value="GO">
+          </form>
+        </div>
+        <div class="row">
+          <div name="search-players-pag-1">
+            <ul class="pagination">
+              <li class="page-item search-players-pag-prev"><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">1</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">2</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">3</a></li>
+              <li class="page-item search-players-pag-next"><a class="page-link" href="#">Next</a></li>
+            </ul>
+            <span>* Click a row to view stats</span><br><br>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <div name="search-players-table-container">
+              <table name="search-players-table">
+                <tr>
+                  <th>Name</th>
+                  <th>Team</th>
+                  <th>Pos</th>
+                </tr>
+              </table><br>
+            </div>
+          </div>
+
+          <div class="col-md-7">
+            <div name="search-display">
+              <div name="search-display-stat-header" style="display: none;">
+                <h3 name="search-display-name"><b></b></h3>
+                <h4 name="search-display-team"></h4>
+                <p>Season Averages</p>
+                <label for="search-display-stat-year">Year</label>
+                <select name="search-display-stat-year" id="">
+  
+                </select> 
+                <p name="search-games-no-found" style="color: #f00;"><b>No data found</b></p>
+              </div>
+              <div name="search-display-data-container">
+                <table name="search-display-1" style="display: none;">
+                  <tr class="table-header">
+                    <th title="games played">GP</th>
+                    <th title="avg mins per game">AM</th>
+                    <th title="field goals made">FGM</th>
+                    <th title="field goals attempted">FGA</th>
+                    <th title="three pointers made">FG3M</th>
+                    <th title="three pointers attempted">FG3A</th>
+                    <th title="free throws made">FTM</th>
+                    <th title="free throws attempted">FTA</th>
+                  </tr>
+                </table><br>
+                <table name="search-display-2" style="display: none;">
+                  <tr class="table-header">
+                    <th title="offensive rebounds">OREB</th>
+                    <th title="defensive rebounds">DREB</th>
+                    <th title="rebounds">REB</th>
+                    <th title="assists">AST</th>
+                    <th title="steals">STL</th>
+                    <th title="blocks">BLK</th>
+                    <th title="turnovers">TO</th>
+                  </tr>
+                </table><br>
+                <table name="search-display-3" style="display: none;">
+                  <tr class="table-header">
+                    <th title="points per game">PPG</th>
+                    <th title="field goal percentage">FGPCT</th>
+                    <th title="three point field goal percentage">FG3PCT</th>
+                    <th title="free throw percentage">FTPCT</th>
+                  </tr>
+                </table>
+                <br>
+                <button class="compare-add" name="season-add" style="display: none;">Add to Compare List</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div name="search-players-pag-2">
+            <ul class="pagination">
+              <li class="page-item search-players-pag-prev"><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">1</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">2</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">3</a></li>
+              <li class="page-item search-players-pag-next"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+      <!-- <div name="teams-page" class="full-page" style="display: none;"> 
+        TEAMS
+      </div> -->
+  
+      <div name="games-page" class="full-page" style="display: none;">
+        <div class="row game-search-player">
+          <form name="search-games-form" action="">
+            <label for="search-games-text-input">Enter the Player's name</label>
+            <input name="search-games-text-input" type="text" class=""/>
+            <input type="submit" value="GO">
+          </form>
+        </div>
+        <div class="row game-search-player">
+          <div name="search-games-pag-1">
+            <ul class="pagination">
+              <li class="page-item search-games-pag-prev"><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">1</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">2</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">3</a></li>
+              <li class="page-item search-games-pag-next"><a class="page-link" href="#">Next</a></li>
+            </ul>
+            <span>* Click a row to view stats</span><br><br>
+          </div>
+        </div>
+        <div class="row game-search-player">
+          <div class="col-md-12">
+            <div name="search-games-table-container">
+              <table name="search-games-table">
+                <tr>
+                  <th>Name</th>
+                  <th>Team</th>
+                  <th>Pos</th>
+                </tr>
+              </table><br>
+            </div>
+          </div>
+        </div>
+        <div class="row game-search-player">
+          <div name="search-games-pag-2">
+            <ul class="pagination">
+              <li class="page-item search-games-pag-prev"><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">1</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">2</a></li>
+              <li class="page-item page-number"><a class="page-link" href="#">3</a></li>
+              <li class="page-item search-games-pag-next"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" name="games-list-select" style="display: none;">
+
+            <table name="games-display-list-navbar" style="display: none;">
+              <tr>
+                <th>Add</th>
+                <th title="datevs">Date vs</th>
+                <th title="minutes played">MP</th>
+                <th title="field goals made">FGM</th>
+                <th title="field goals attempted">FGA</th>
+                <th title="three pointers made">FG3M</th>
+                <th title="three pointers attempted">FG3A</th>
+                <th title="free throws made">FTM</th>
+                <th title="free throws attempted">FTA</th>
+                <th title="offensive rebounds">OREB</th>
+                <th title="defensive rebounds">DREB</th>
+                <th title="rebounds">REB</th>
+                <th title="assists">AST</th>
+                <th title="steals">STL</th>
+                <th title="blocks">BLK</th>
+                <th title="turnovers">TO</th>
+                <th title="points">PTS</th>
+                <th title="field goal percentage">FGPCT</th>
+                <th title="three point field goal percentage">FG3PCT</th>
+                <th title="free throw percentage">FTPCT</th>
+              </tr>              
+            </table>
+            
+            <button class="btn-default" name="games-list-back-1"> Back to Player Search</button><br><br>
+            
+            <h3 name="search-games-name"></h3>
+            <h4 name="search-games-team"></h4>
+            <label for="select-games-season">Season</label><br>
+
+            <select name="select-games-season" id="select-games-season">
+            </select> <br><br>
+
+            <div name="game-list-pag-1">
+              <ul class="pagination">
+                <li class="page-item game-list-pag-prev" style="display: none;"><a class="page-link" href="#">Prev</a></li>
+                <li class="page-item page-number"><a class="page-link" href="#">1</a></li>
+                <li class="page-item page-number"><a class="page-link" href="#">2</a></li>
+                <li class="page-item page-number"><a class="page-link" href="#">3</a></li>
+                <li class="page-item game-list-pag-next" style="display: none;"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </div>
+
+            <table name="games-display-list">
+              <tr>
+                <th>Add</th>
+                <th title="datevs">Date vs</th>
+                <th title="minutes played">MP</th>
+                <th title="field goals made">FGM</th>
+                <th title="field goals attempted">FGA</th>
+                <th title="three pointers made">FG3M</th>
+                <th title="three pointers attempted">FG3A</th>
+                <th title="free throws made">FTM</th>
+                <th title="free throws attempted">FTA</th>
+                <th title="offensive rebounds">OREB</th>
+                <th title="defensive rebounds">DREB</th>
+                <th title="rebounds">REB</th>
+                <th title="assists">AST</th>
+                <th title="steals">STL</th>
+                <th title="blocks">BLK</th>
+                <th title="turnovers">TO</th>
+                <th title="points">PTS</th>
+                <th title="field goal percentage">FGPCT</th>
+                <th title="three point field goal percentage">FG3PCT</th>
+                <th title="free throw percentage">FTPCT</th>
+              </tr>
+            </table>
+            
+            <p name="games-found-status" style="color: red; display: none;"><b>No Games Found</b></p><br>
+
+            <div name="game-list-pag-2">
+              <ul class="pagination">
+                <li class="page-item game-list-pag-prev" style="display: none;"><a class="page-link" href="#">Prev</a></li>
+                <li class="page-item page-number"><a class="page-link" href="#">1</a></li>
+                <li class="page-item page-number"><a class="page-link" href="#">2</a></li>
+                <li class="page-item page-number"><a class="page-link" href="#">3</a></li>
+                <li class="page-item game-list-pag-next" style="display: none;"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </div>
+
+            <button class="btn-default" name="games-list-back-2"> Back to Player Search</button><br><br>
+          </div>
+        </div>
+      </div>
+  
+      <div name="compare-page" class="full-page" style="display: none;">
+        <div class="row">
+          <div class="col-md-12"  name="compare-dataset-list"> 
+            <h2>Dataset List</h2>
+            <i>* Double-click to remove</i>
+            <p name="compare-dataset-list-status"></p>
+            <ul></ul>
+          </div>
+        </div>
+        <div class="row chartrow">
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+        </div>
+        <div class="row chartrow">
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+        </div>
+        <div class="row chartrow">
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+        </div>
+        <div class="row chartrow">
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+        </div>
+        <div class="row chartrow">
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+        </div>
+        <div class="row chartrow">
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+        </div>
+        <div class="row chartrow">
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+        </div>
+        <div class="row chartrow">
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+        </div>
+        <div class="row chartrow">
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas class="chart" width="50" height="50"></canvas>
+          </div>
+        </div>
+      </div>
+  
+      <div name="latest-page" class="full-page" style="display: none;">
+          <h1>Latest Scores</h1><br>
+          <div id="latest-games-container">
+            <div class="game-card">
+              <p name="time">7:00PM</p>
+              <p name="home">LAL  0</p>
+              <p name="away">BKY  0</p>
+            </div>
+            <div class="game-card">
+              <p name="time">7:00PM</p>
+              <p name="home">LAL  0</p>
+              <p name="away">BKY  0</p>
+            </div>
+            <div class="game-card">
+              <p name="time">7:00PM</p>
+              <p name="home">LAL  0</p>
+              <p name="away">BKY  0</p>
+            </div>
+            <div class="game-card">
+              <p name="time">7:00PM</p>
+              <p name="home">LAL  0</p>
+              <p name="away">BKY  0</p>
+            </div>
+          </div>
+      </div>
+
+      <div name="settings-page" class="full-page" style="display: none;">
+        <h2>Settings</h2>
+        <div class="row">
+          <div class="col-md-12">
+            <form action="" name="settings-form">
+              <div style="display: flex;">
+                  <div style="width: 50%;">
+                    <label for="onoffswitch-darktheme">Dark Theme</label><br>
+                    <div class="onoffswitch">
+                      <input type="checkbox" name="onoffswitch-darktheme" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0">
+                      <label class="onoffswitch-label" for="myonoffswitch">
+                          <span class="onoffswitch-inner"></span>
+                          <span class="onoffswitch-switch"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div style="width: 50%;">
+                    <label for="select-font">Font</label><br>
+                    <select name="select-font" id="">
+                      <option value="arial">arial</option>
+                      <option value="courier">courier</option>
+                      <option value="cursive">cursive</option>
+                    </select>
+                  </div>
+              </div><br>
+              <input class="btn btn-primary" type="submit" value="Save Settings" name="setting-submit" id="">
+          </form>
+          </div>
+        </div>
+      </div>
+
+      <div name="about-page" class="full-page" style="display: none;">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>About</h2>
+            <p>Statcrawler is an app developed by Nate P.</p>
+            <p>It leverages live Basketball statistical data, and allows users to crawl, examine and compare stats by player name.</p>
+             <p>Want to report a bug or make a feature request? Email us at <b>auxillary1apps@gmail.com</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
